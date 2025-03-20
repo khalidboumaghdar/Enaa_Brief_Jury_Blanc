@@ -24,7 +24,7 @@
            
           <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.jsp">
+                <a class="navbar-brand" href="dashboard.jsp">
                     <img src="assets/images/logosport.png" alt="Logo" class="img-fluid img" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,10 +32,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="index.jsp">Dashboard</a></li>
-                        <li class="nav-item"><a class="nav-link" href="index.jsp">Project</a></li>
-                        <li class="nav-item"><a class="nav-link" href="index.jsp">Resource</a></li>
-                        <li class="nav-item"><a class="nav-link" href="index.jsp">Taches</a></li>
+                        <li class="nav-item"><a class="nav-link" href="dashboard.jsp">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="dashboard.jsp">Project</a></li>
+                        <li class="nav-item"><a class="nav-link" href="dashboard.jsp">Resource</a></li>
+                        <li class="nav-item"><a class="nav-link" href="dashboard.jsp">Taches</a></li>
                         <li class="nav-item pl-5"><a class="btn btn-light text-primary" href="connection.jsp">Connexion</a></li>
                     </ul>
                 </div>

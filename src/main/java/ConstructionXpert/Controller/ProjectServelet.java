@@ -1,6 +1,7 @@
 package ConstructionXpert.Controller;
 
 import ConstructionXpert.DAO.Dao;
+import ConstructionXpert.Interface.ITache;
 import ConstructionXpert.Model.Project;
 import ConstructionXpert.Interface.IProject;
 
@@ -16,7 +17,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/")
-public class Controller extends HttpServlet implements IProject {
+public class ProjectServelet extends HttpServlet implements IProject {
     public Dao dao ;
     public void init() {
         dao=new Dao();
@@ -31,7 +32,7 @@ public class Controller extends HttpServlet implements IProject {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getServletPath();
         switch (action) {
-            case "/Project":
+            case "/project":
                 try {
                     ShowProject(request,response);
                 } catch (SQLException e) {
@@ -59,13 +60,20 @@ public class Controller extends HttpServlet implements IProject {
                     throw new RuntimeException(e);
                 }
                 break;
+            default:
+                dasshbord(request, response);
+                break;
         }
+    }
+    public void dasshbord(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher dispatcher = req.getRequestDispatcher("dashboard.jsp");
+        dispatcher.forward(req, resp);
     }
 
     @Override
     public void ShowProject(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        List<ConstructionXpert.Model.Project> projectList = dao.SelectAllProject();
+        List<Project> projectList = dao.SelectAllProject();
         request.setAttribute("projectList", projectList);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("project.jsp");
@@ -83,14 +91,14 @@ public class Controller extends HttpServlet implements IProject {
     Float budget = Float.parseFloat(request.getParameter("budget"));
        Project project = new Project(nom,description,dt_debut,dt_fin,budget);
         dao.InsertProject(project);
-        response.sendRedirect("./Project");
+        response.sendRedirect("./project");
     }
 
     @Override
     public void RemoveProject(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
         dao.deleteProject(id);
-        response.sendRedirect("./Project");
+        response.sendRedirect("./project");
     }
 
     @Override
@@ -105,9 +113,10 @@ public class Controller extends HttpServlet implements IProject {
         Float budget = Float.parseFloat(request.getParameter("budgetpr"));
         Project project = new Project(id,nom,description,dt_debut,dt_fin,budget);
         dao.updateProject(project);
-        response.sendRedirect("./Project");
+        response.sendRedirect("./project");
 
     }
+
 
 
 }

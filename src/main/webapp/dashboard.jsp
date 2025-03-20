@@ -161,7 +161,7 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item"><a class="nav-link" href="index.html">Dashboard</a></li>
-                            <li class="nav-item"><a class="nav-link" href="Project">Project</a></li>
+                            <li class="nav-item"><a class="nav-link" href="project">Project</a></li>
                             <li class="nav-item"><a class="nav-link" href="index.html">Resource</a></li>
                             <li class="nav-item"><a class="nav-link" href="index.html">Taches</a></li>
                             <li class="nav-item pl-5"><a class="btn btn-light text-primary" href="connection.jsp">Connexion</a></li>

@@ -19,6 +19,12 @@ private Float budget;
         this.budget = budget;
     }
 
+    public Project(int id, String nom, String description) {
+        this.id = id;
+        this.nom = nom;
+        this.description = description;
+    }
+
     public Project(String nom, String description, Date date_de_debut, Date date_de_fin, Float budget) {
         this.nom = nom;
         this.description = description;
