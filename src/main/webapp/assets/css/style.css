@@ -1,0 +1,285 @@
+header{
+    position: fixed;
+    height: 9vh;
+    background: white;
+    width: 100%;
+    z-index: 1000;
+}.img{
+    width: 200px;
+}.color-nav{
+    color: #6255E2 !important;
+    position: relative;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}.color-nav:hover{
+    border-bottom: 2px solid #6255E2;
+}.btn_connection{
+    background-color: #6255E2;
+    color: #6255E2 !important;
+    position: relative;
+    top: 9px;
+    text-decoration: none;
+    font-family: fantasy;
+    padding: 5px !important;
+    border-radius: 5px;
+    cursor: pointer;
+}.bg-vidio{
+   width: 50%;
+
+}video{
+    width: 100%;
+    height: 80vh;
+}.bg{
+    background: #6255E2;
+    height: 80vh;
+}.pdT{
+    padding-top: 154px;
+
+}
+.bg-c-blue{
+  background-color: #6255E2;
+}
+.card-counter{
+    box-shadow: 2px 2px 10px #DADADA;
+    margin: 5px;
+    padding: 20px 10px;
+    background-color: #fff;
+    height: 100px;
+    border-radius: 5px;
+    transition: .3s linear all;
+  }
+
+  .card-counter:hover{
+    box-shadow: 4px 4px 20px #DADADA;
+    transition: .3s linear all;
+  }
+
+  .card-counter.primary{
+    background-color: #007bff;
+    color: #FFF;
+  }
+
+  .card-counter.danger{
+    background-color: #ef5350;
+    color: #FFF;
+  }  
+
+  .card-counter.success{
+    background-color: #66bb6a;
+    color: #FFF;
+  }  
+
+  .card-counter.info{
+    background-color: #26c6da;
+    color: #FFF;
+  }  
+
+  .card-counter i{
+    font-size: 5em;
+    opacity: 0.2;
+  }
+
+  .card-counter .count-numbers{
+    position: absolute;
+    right: 35px;
+    top: 20px;
+    font-size: 32px;
+    display: block;
+  }
+  body {
+    background-color: #ffffff; /* Fond blanc */
+    color: #000000; /* Texte noir */
+}
+  .mr-2{
+      margin-left: 30px;
+  }
+
+.card-counter {
+    background-color: #000000; /* Fond noir */
+    color: #ffffff; /* Texte blanc */
+    border: 2px solid #ffffff; /* Bordure blanche */
+}
+
+.card-counter i {
+    color: #ffffff; /* Icônes en blanc */
+}
+
+
+
+            .navbar {
+                background: linear-gradient(45deg, #fff, #007bff);
+                box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+               
+                padding: 10px 20px;
+                transform-style: preserve-3d;
+                transition: all 0.3s ease-in-out;
+            }
+
+            .navbar:hover {
+                transform: translateY(-3px) scale(1.02);
+                box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+            }
+
+            .navbar-brand img {
+                width: 120px;
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .navbar-brand img:hover {
+                transform: rotateY(360deg) scale(1.1);
+            }
+
+            .navbar-nav .nav-link {
+                font-weight: bold;
+                color: white !important;
+                position: relative;
+                transition: color 0.3s ease-in-out;
+            }
+
+            .navbar-nav .nav-link::before {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 3px;
+                bottom: 0;
+                left: 0;
+                background: white;
+                transform: scaleX(0);
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .navbar-nav .nav-link:hover::before {
+                transform: scaleX(1);
+            }
+
+        /* CARD DESIGN */
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            margin-bottom: 20px;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .card-footer {
+            background: #f8f9fa;
+            border-top: 1px solid #ddd;
+        }
+
+        .btn-group button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 0 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-group button:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-group i {
+            margin-right: 5px;
+        }
+
+  .card-counter .count-name{
+    position: absolute;
+    right: 35px;
+    top: 65px;
+    font-style: italic;
+    text-transform: capitalize;
+    opacity: 0.5;
+    display: block;
+    font-size: 18px;
+  }
+
+.pdT h2 {
+    font-size: 48px;
+    color: white;
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 2s steps(10) forwards, blink 0.7s infinite;
+  }
+  .pdT p {
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    color: white;
+    display: inline-block;
+    max-width: 100%; 
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typingDesc 5s steps(50, end) forwards, blink 0.7s infinite;
+  }.pl-5{
+    margin-left: 484px;
+  }.ds{
+    display: none;
+  }
+  
+  @keyframes typingDesc {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+  }
+  
+  
+  
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+  }
+  
+
+  @media screen and (max-width: 600px) {
+    .sm{
+        display: none;
+    }
+    video {
+        width: 100%;
+        height: 36vh;
+    }.ds{
+        display: block;
+    }.pl-5{
+        margin-left: 0px;
+        padding-top: 10px;
+    }
+  }
