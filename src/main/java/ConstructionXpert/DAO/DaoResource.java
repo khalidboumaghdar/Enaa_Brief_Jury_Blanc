@@ -45,7 +45,7 @@ public class DaoResource {
     }
 
     public Ressource getResourceById(int id) throws SQLException {
-        String sql = "SELECT * FROM resources WHERE id = ?";
+        String sql = "SELECT * FROM ressources WHERE id = ?";
         Ressource resource = null;
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -56,8 +56,8 @@ public class DaoResource {
                         rs.getInt("id"),
                         rs.getString("nom"),
                         rs.getString("type"),
-                        rs.getInt("quantity"),
-                        rs.getString("forniseur")
+                        rs.getInt("quantite"),
+                        rs.getString("fournisseur")
                 );
             }
         }

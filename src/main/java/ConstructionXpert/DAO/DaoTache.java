@@ -2,6 +2,7 @@ package ConstructionXpert.DAO;
 
 import ConstructionXpert.DB_Connection.DbConnection;
 import ConstructionXpert.Model.Project;
+import ConstructionXpert.Model.Ressource;
 import ConstructionXpert.Model.Taches;
 
 import java.sql.*;
@@ -11,6 +12,7 @@ import java.util.List;
 public class DaoTache {
 
     private Connection connection;
+    public Dao dao = new Dao();
 
     public DaoTache() {
         connection = DbConnection.getConnection();
@@ -67,9 +69,30 @@ public class DaoTache {
         }
     }
 
+    public Taches getTachesById(int idtache,int projectId) throws SQLException {
+
+        String sql = "SELECT * FROM Taches WHERE id = ?";
+        Taches taches = null;
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, idtache);
+            ResultSet rs = stmt.executeQuery();
+            Project project = dao.getProjectById(projectId);
+            if (rs.next()) {
+                taches = new Taches(
+                        rs.getInt("id"),
+                        project,
+                        rs.getString("description"),
+                        rs.getDate("date_debut"),
+                        rs.getDate("date_fin")
 
 
-    // Method to update a task
+                );
+            }
+        }
+        return taches;
+    }
+
     public void updateTache(Taches tache) throws SQLException {
         String query = "UPDATE Taches SET projet_id = ?, description = ?, date_debut = ?, date_fin = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {

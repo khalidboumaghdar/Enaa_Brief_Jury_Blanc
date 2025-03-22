@@ -1,5 +1,6 @@
 <%@ page import="ConstructionXpert.Model.Project" %>
 <%@ page import="java.util.List" %>
+<%@ page import="ConstructionXpert.Model.Ressource" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="fr">
@@ -67,7 +68,9 @@
                         <td>
                             <!-- Edit Button -->
                             <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editTaskModal"
-                                    data-id="${tache.id}" data-description="${tache.description}"
+                                    data-id="${tache.id}"
+                                    data-projet_id="${tache.project.id}"
+                                    data-description="${tache.description}"
                                     data-dateDebut="${tache.dateDebut}" data-dateFin="${tache.dateFin}">
                                 Modifier
                             </button>
@@ -75,6 +78,12 @@
                             <a href="TacheServelet?action=delete&id=${tache.id}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette tâche ?')">
                                 Supprimer
                             </a>
+                            <button data-bs-toggle="modal" data-bs-target="#Addresourcetache"
+                               data-id="${tache.id}"
+                               data-projet_id="${tache.project.id}"
+                               data-description="${tache.description}"
+                               data-dateDebut="${tache.dateDebut}" data-dateFin="${tache.dateFin}"  class="btn btn-success" > Assignation</button>
+
                         </td>
                     </tr>
                 </c:forEach>
@@ -83,8 +92,47 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="Addresourcetache" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Addresourcetachelabel">Ajouter une tâche</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body ">
+                    <form action="AssignationServelet?action=add" method="POST">
+                        <input type="hidden" id="AddresourceProject" name="project_id">
+                        <input type="hidden" id="Addresourcetacheid" name="tache_id">
 
-<!-- Modal for Adding a Task -->
+
+                        <div class="mb-3">
+                            <label for="ressource_id" class="form-label">Sélectionner une Ressource</label>
+                            <select class="form-select" id="ressource_id" name="ressource_id" required>
+                                <%
+                                    List<Ressource> ressourceList = (List<Ressource>) request.getAttribute("resources");
+                                    for(Ressource ressource : ressourceList){
+
+
+                                %>
+                                <option value="<%=ressource.getId()%>"><%=ressource.getNom()%></option>
+                                <% } %>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="quantite_utilisee" class="form-label">Quantité Utilisée</label>
+                            <input type="number" class="form-control" id="quantite_utilisee" name="quantite_utilisee" min="1" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100">Ajouter</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -125,7 +173,6 @@
     </div>
 </div>
 
-<!-- Modal for Editing a Task -->
 <div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="editTaskModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -137,16 +184,8 @@
                 <form action="TacheServelet?action=update" method="POST">
                     <input type="hidden" id="editTaskId" name="id">
                     <div class="mb-3">
-                        <select class="form-select" name="projet_id" aria-label="Default select example">
-                            <%
-                                List<Project> projectList1 = (List<Project>) request.getAttribute("projectList");
-                                for(Project project : projectList1){
+                        <input type="hidden" id="editTaskprojet_id" name="projet_id">
 
-
-                            %>
-                            <option value="<%=project.getId()%>"><%=project.getNom()%></option>
-                            <%}%>
-                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="editDescription" class="form-label">Nom de la tâche</label>
@@ -169,7 +208,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Set the values of the edit modal based on the selected task
     var editTaskModal = document.getElementById('editTaskModal');
     editTaskModal.addEventListener('show.bs.modal', function(event) {
         var button = event.relatedTarget;
@@ -177,12 +215,27 @@
         var taskDescription = button.getAttribute('data-description');
         var taskDateDebut = button.getAttribute('data-dateDebut');
         var taskDateFin = button.getAttribute('data-dateFin');
+        var teskprojet_id = button.getAttribute('data-projet_id');
+
 
         document.getElementById('editTaskId').value = taskId;
         document.getElementById('editDescription').value = taskDescription;
         document.getElementById('editDateDebut').value = taskDateDebut;
         document.getElementById('editDateFin').value = taskDateFin;
+        document.getElementById('editTaskprojet_id').value =teskprojet_id;
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var assignModal = document.getElementById('Addresourcetache');
+        assignModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var taskId = button.getAttribute('data-id');
+            var Resourceprojet_id = button.getAttribute('data-projet_id');
+            document.getElementById('Addresourcetacheid').value = taskId;
+            document.getElementById('AddresourceProject').value=Resourceprojet_id;
+        });
+    });
+
 </script>
 </body>
 </html>

@@ -1,8 +1,10 @@
 package ConstructionXpert.Controller;
 
 import ConstructionXpert.DAO.Dao;
+import ConstructionXpert.DAO.DaoResource;
 import ConstructionXpert.DAO.DaoTache;
 import ConstructionXpert.Model.Project;
+import ConstructionXpert.Model.Ressource;
 import ConstructionXpert.Model.Taches;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -20,10 +22,14 @@ import java.util.List;
 public class TacheServelet extends HttpServlet {
     private DaoTache dao;
     private Dao daoproject;
+    public DaoResource resource;
+
 
     public void init() {
         dao = new DaoTache();
         daoproject= new Dao();
+        resource = new DaoResource();
+
     }
 
     @Override
@@ -96,6 +102,8 @@ public class TacheServelet extends HttpServlet {
 
     public void ShowTaches(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         List<Taches> taches = dao.SelectAllTaches();
+        List<Ressource> resources = resource.getAllResources();
+        request.setAttribute("resources", resources);
         request.setAttribute("taches", taches);
         List<Project> projectList = daoproject.SelectAllProject();
         request.setAttribute("projectList", projectList);

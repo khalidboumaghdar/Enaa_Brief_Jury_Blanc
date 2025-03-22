@@ -50,6 +50,25 @@ public class Dao {
         System.out.println("Update successful: " + rowUpdated);
         return rowUpdated;
     }
+    public Project getProjectById(int id) throws SQLException {
+        String query = "SELECT * FROM project WHERE id = ?";
+        try (PreparedStatement ps = getConnection().prepareStatement(query)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Project(
+                        rs.getInt("id"),
+                        rs.getString("nom"),
+                        rs.getString("description"),
+                        rs.getDate("date_de_debut"),
+                        rs.getDate("date_de_fin"),
+                        rs.getFloat("budget")
+                );
+            }
+        }
+        return null;
+    }
+
 
     public List<Project> SelectAllProject() {
         List<Project> projects = new ArrayList<>();
