@@ -146,7 +146,7 @@
 <body>
 <div class="login-container">
     <div class="login-header">
-        <img src="assets/images/logosport.png" alt="ConstructionXpert Logo">
+        <img src="assets/images/img.png" alt="ConstructionXpert Logo">
         <h1>Connexion à votre compte</h1>
         <p>Entrez vos identifiants pour accéder au tableau de bord</p>
     </div>

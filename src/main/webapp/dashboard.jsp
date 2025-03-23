@@ -1,4 +1,9 @@
+<%@ page import="ConstructionXpert.Model.Administrateur" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    HttpSession sessionObj = request.getSession(false);
+    Administrateur administrateur = (sessionObj != null) ? (Administrateur) sessionObj.getAttribute("admin") : null;
+%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -373,7 +378,7 @@
 
             <li class="nav-item">
                 <a href="LogoutServlet" class="nav-link">
-                    <i class="bi bi-box-arrow-right"></i> Déconnexion
+                    <i class="bi bi-box-arrow-right"></i> Deconnexion
                 </a>
             </li>
         </ul>
@@ -390,8 +395,8 @@
                 <input type="text" placeholder="Rechercher...">
             </div>
             <div class="user-menu">
-                <span>Admin</span>
-                <img src="/api/placeholder/40/40" alt="User">
+                <span><%=administrateur.getNom()%></span>
+                <i class="bi bi-person-circle"></i>
             </div>
         </header>
 

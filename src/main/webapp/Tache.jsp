@@ -1,7 +1,12 @@
 <%@ page import="ConstructionXpert.Model.Project" %>
 <%@ page import="java.util.List" %>
 <%@ page import="ConstructionXpert.Model.Ressource" %>
+<%@ page import="ConstructionXpert.Model.Administrateur" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%
+    HttpSession sessionObj = request.getSession(false);
+    Administrateur administrateur = (sessionObj != null) ? (Administrateur) sessionObj.getAttribute("admin") : null;
+%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -328,8 +333,8 @@
                 <input type="text" placeholder="Rechercher une tâche...">
             </div>
             <div class="user-menu">
-                <span>Admin</span>
-                <img src="/api/placeholder/40/40" alt="User">
+                <span><%=administrateur.getNom()%></span>
+                <i class="bi bi-person-circle"></i>
             </div>
         </header>
 
