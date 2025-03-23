@@ -14,6 +14,7 @@ public class Dao {
     private static final String SELECT_Project = "select * from Project;";
     private static final String DELETE_Project = "DELETE FROM Project where id = ?;";
     private static final String UPDATE_PROJECT ="UPDATE project SET nom = ?,  description = ?,date_de_debut = ?,date_de_fin = ?,budget = ? WHERE id = ?";
+    private static final String SELECT_Last_project = "SELECT * FROM project ORDER BY id DESC LIMIT 1";
 
     public static void InsertProject(Project project) throws SQLException {
 
@@ -68,6 +69,28 @@ public class Dao {
         }
         return null;
     }
+    public List<Project> SelectLastProject() throws SQLException {
+        List<Project> projects = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_Last_project);
+             ResultSet rs = preparedStatement.executeQuery()) {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nom = rs.getString("nom");
+                String description = rs.getString("description");
+                Date date_de_debut = rs.getDate("date_de_debut");
+                Date date_de_fin = rs.getDate("date_de_fin");
+                Float budget = rs.getFloat("budget");
+                projects.add(new Project(id,nom,description,date_de_debut,date_de_fin,budget));
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println(projects);
+
+        return projects;
+    }
 
 
     public List<Project> SelectAllProject() {
@@ -91,6 +114,48 @@ public class Dao {
         System.out.println(projects);
 
         return projects;
+    }
+    public int CountAllProject() throws SQLException {
+        int count = 0;
+        String sql = "Select count(*) As TotalProject from project";
+        try(Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt("TotalProject");
+            }
+        }
+        return count;
+
+
+    }
+    public int CountAllTaches() throws SQLException {
+        int count = 0;
+        String sql = "Select count(*) As TotalTaches from Taches";
+        try(Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt("TotalTaches");
+            }
+        }
+        return count;
+
+
+    }
+    public int CountAllResources() throws SQLException {
+        int count = 0;
+        String sql = "Select count(*) As TotalResource from Taches";
+        try(Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt("TotalResource");
+            }
+        }
+        return count;
+
+
     }
     public boolean deleteProject(int id) {
         boolean rowDeleted = false;

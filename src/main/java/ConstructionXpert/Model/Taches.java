@@ -18,6 +18,11 @@ public class Taches {
         this.dateFin = dateFin;
     }
 
+    public Taches(int id, String description) {
+        this.id = id;
+        this.description = description;
+    }
+
     public int getId() {
         return id;
     }

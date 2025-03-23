@@ -15,6 +15,11 @@ public class Ressource {
         this.forniseur = forniseur;
     }
 
+    public Ressource(int id, String nom) {
+        this.id = id;
+        this.nom = nom;
+    }
+
     public Ressource(String nom, String type, int quantity, String forniseur) {
         this.nom = nom;
         this.type = type;

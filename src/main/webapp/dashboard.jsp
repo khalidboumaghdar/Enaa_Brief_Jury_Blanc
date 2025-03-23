@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -350,41 +351,33 @@
         </div>
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="#" class="nav-link active">
-                    Dashboard
+                <a href="dashboard" class="nav-link active">
+                    <i class="bi bi-speedometer2"></i> Dashboard
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">
-                    Projets
+                <a href="project" class="nav-link">
+                    <i class="bi bi-kanban"></i> Projets
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">
-                   Tâches
+                <a href="ResourceServelet" class="nav-link ">
+                    <i class="bi bi-box-seam"></i> Ressources
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">
-                    Ressources
+                <a href="TacheServelet" class="nav-link">
+                    <i class="bi bi-list-task"></i> Taches
                 </a>
             </li>
+
             <li class="nav-item">
-                <a href="#" class="nav-link">
-                    Fournisseurs
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                     Paramètres
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    Déconnexion
+                <a href="LogoutServlet" class="nav-link">
+                    <i class="bi bi-box-arrow-right"></i> Déconnexion
                 </a>
             </li>
         </ul>
+
     </aside>
 
     <!-- Main Content -->
@@ -410,86 +403,52 @@
             <div class="dashboard-stats">
                 <div class="stat-card">
                     <div class="stat-card-icon"><i class="bi bi-stopwatch"></i></div>
-                    <div class="stat-card-title">Projets en cours</div>
-                    <div class="stat-card-value">12</div>
+                    <div class="stat-card-title">Projets</div>
+                    <div class="stat-card-value">${countProject}</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-card-icon"><i class="bi bi-calendar-check"></i></div>
-                    <div class="stat-card-title">Taches a completer</div>
-                    <div class="stat-card-value">48</div>
+                    <div class="stat-card-title">Taches </div>
+                    <div class="stat-card-value">${countTaches}</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-card-icon"><i class="bi bi-box-seam"></i></div>
                     <div class="stat-card-title">Ressources</div>
-                    <div class="stat-card-value">320</div>
+                    <div class="stat-card-value">${countResources}</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-card-icon"><i class="bi bi-person-fill"></i></div>
-                    <div class="stat-card-title">Fournisseurs</div>
-                    <div class="stat-card-value">24</div>
-                </div>
+
+
             </div>
 
 
             <!-- Recent Projects -->
             <div class="recent-projects">
                 <div class="recent-title">
-                    <span>Projets </span>
-                    <a href="#" class="view-all">Voir tout</a>
+                    <span>Dernier Projet </span>
+                    <a href="project" class="view-all">Voir tout</a>
                 </div>
                 <div class="table-responsive">
                     <table>
                         <thead>
                         <tr>
                             <th>Nom du projet</th>
-                            <th>Date début</th>
+                            <th>Description</th>
+                            <th>Date debut</th>
                             <th>Date fin</th>
                             <th>Budget</th>
-                            <th>Statut</th>
-                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
+                        <c:forEach var="project" items="${LastprojectList}">
                         <tr>
-                            <td>Résidence Les Cedres</td>
-                            <td>01/02/2025</td>
-                            <td>15/08/2025</td>
-                            <td>2 500 000 DH</td>
-                            <td><span class="status active">En cours</span></td>
-                            <td>
-                                <button class="action-btn">Détails</button>
-                            </td>
+                            <td>${project.nom}</td>
+                            <td>${project.description}</td>
+                            <td>${project.date_de_debut}</td>
+                            <td>${project.date_de_fin}</td>
+                            <td>${project.budget}</td>
+
                         </tr>
-                        <tr>
-                            <td>Centre Commercial Médina</td>
-                            <td>15/01/2025</td>
-                            <td>30/10/2025</td>
-                            <td>8 200 000 DH</td>
-                            <td><span class="status active">En cours</span></td>
-                            <td>
-                                <button class="action-btn">Détails</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Tour Atlantique</td>
-                            <td>10/11/2024</td>
-                            <td>22/05/2025</td>
-                            <td>4 800 000 DH</td>
-                            <td><span class="status completed">Terminé</span></td>
-                            <td>
-                                <button class="action-btn">Détails</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Hôtel Marina Bay</td>
-                            <td>01/04/2025</td>
-                            <td>30/12/2025</td>
-                            <td>12 500 000 DH</td>
-                            <td><span class="status pending">Planifié</span></td>
-                            <td>
-                                <button class="action-btn">Détails</button>
-                            </td>
-                        </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>

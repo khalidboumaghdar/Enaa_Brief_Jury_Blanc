@@ -384,7 +384,7 @@
 
                 <li class="nav-item">
                     <a href="LogoutServlet" class="nav-link">
-                        <i class="bi bi-box-arrow-right"></i> Deconnexion
+                        <i class="bi bi-box-arrow-right"></i> Déconnexion
                     </a>
                 </li>
             </ul>
@@ -406,16 +406,14 @@
 
             <div class="dashboard">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h1 class="dashboard-title">Gestion des Ressources</h1>
+                    <h1 class="dashboard-title">Gestion des Ressources Taches</h1>
 
-                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addResourceModal">
-                        <i class="bi bi-plus-circle me-2"></i> Ajouter une ressource
-                    </button>
+
                 </div>
 
                 <div class="card shadow">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="text-white mb-0"><i class="bi bi-list-ul me-2"></i>Liste des Ressources</h5>
+                        <h5 class="text-white mb-0"><i class="bi bi-list-ul me-2"></i>Liste des Ressources taches</h5>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
@@ -423,37 +421,24 @@
                                 <thead>
                                 <tr>
                                     <th width="5%">#</th>
-                                    <th width="25%">Nom de la Ressource</th>
-                                    <th width="15%">Type</th>
-                                    <th width="15%">Quantite</th>
-                                    <th width="20%">Fournisseur</th>
-                                    <th width="20%">Actions</th>
+                                    <th width="15%">Quantite utilise</th>
+                                    <th width="15%">Nom Resource</th>
+                                    <th width="20%">Description Tache</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="resource" items="${resources}">
+                                <c:forEach var="resourcetache" items="${resourceTaches}">
                                     <tr>
-                                        <td>${resource.id}</td>
+                                        <td>${resourcetache.id}</td>
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <i class="bi bi-box me-2 text-primary"></i>
-                                                <div>${resource.nom}</div>
+                                                <div>${resourcetache.quantity}</div>
                                             </div>
                                         </td>
-                                        <td><span class="badge bg-info text-dark">${resource.type}</span></td>
-                                        <td>${resource.quantity}</td>
-                                        <td>${resource.forniseur}</td>
-                                        <td>
-                                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editResourceModal"
-                                                    data-id="${resource.id}" data-nom="${resource.nom}"
-                                                    data-type="${resource.type}" data-quantity="${resource.quantity}"
-                                                    data-forniseur="${resource.forniseur}">
-                                                <i class="bi bi-pencil me-1"></i> Modifier
-                                            </button>
-                                            <a href="ResourceServelet?action=delete&id=${resource.id}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette ressource ?')">
-                                                <i class="bi bi-trash me-1"></i> Supprimer
-                                            </a>
-                                        </td>
+                                        <td><span class="badge bg-info text-dark">${resourcetache.ressource.nom}</span></td>
+                                        <td><span class="badge bg-info text-dark">${resourcetache.taches.description}</span></td>
+
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -467,91 +452,6 @@
     </div>
 </div>
 
-
-<div class="modal fade" id="addResourceModal" tabindex="-1" aria-labelledby="addResourceModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addResourceModalLabel"><i class="bi bi-plus-circle-fill me-2 text-success"></i>Ajouter une ressource</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="ResourceServelet?action=add" method="POST">
-                    <div class="mb-3">
-                        <label for="description" class="form-label">Nom de la ressource</label>
-                        <input type="text" class="form-control" id="description" name="nom" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="type" class="form-label">Type</label>
-                        <select class="form-select" id="type" name="type" required>
-                            <option value="" selected disabled>Selectionner un type</option>
-                            <option value="Matériel">Materiel</option>
-                            <option value="Outil">Outil</option>
-                            <option value="Matériau">Materiau</option>
-                            <option value="Autre">Autre</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="quantity" class="form-label">Quantite</label>
-                        <input type="number" class="form-control" id="quantity" name="quantity" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="forniseur" class="form-label">Fournisseur</label>
-                        <input type="text" class="form-control" id="forniseur" name="forniseur" required>
-                    </div>
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="bi bi-save me-2"></i>Ajouter
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="editResourceModal" tabindex="-1" aria-labelledby="editResourceModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editResourceModalLabel"><i class="bi bi-pencil-fill me-2 text-warning"></i>Modifier une ressource</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="ResourceServelet?action=update" method="POST">
-                    <input type="hidden" id="editResourceId" name="id">
-
-                    <div class="mb-3">
-                        <label for="editnom" class="form-label">Nom de la ressource</label>
-                        <input type="text" class="form-control" id="editnom" name="nom" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editType" class="form-label">Type</label>
-                        <select class="form-select" id="editType" name="type" required>
-                            <option value="Matériel">Materiel</option>
-                            <option value="Outil">Outil</option>
-                            <option value="Matériau">Materiau</option>
-                            <option value="Autre">Autre</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editQuantity" class="form-label">Quantité</label>
-                        <input type="number" class="form-control" id="editQuantity" name="quantity" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editForniseur" class="form-label">Fournisseur</label>
-                        <input type="text" class="form-control" id="editForniseur" name="forniseur" required>
-                    </div>
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-success">
-                            <i class="bi bi-check-circle me-2"></i>Mettre à jour
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -568,42 +468,6 @@
 
         menuToggle.addEventListener('click', toggleMenu);
         overlay.addEventListener('click', toggleMenu);
-
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                navLinks.forEach(l => l.classList.remove('active'));
-
-                this.classList.add('active');
-
-                if (window.innerWidth <= 768) {
-                    toggleMenu();
-                }
-            });
-        });
-
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768) {
-                sidebar.classList.remove('active');
-                overlay.classList.remove('active');
-            }
-        });
-    });
-
-    var editResourceModal = document.getElementById('editResourceModal');
-    editResourceModal.addEventListener('show.bs.modal', function(event) {
-        var button = event.relatedTarget;
-        var resourceId = button.getAttribute('data-id');
-        var resourceDescription = button.getAttribute('data-nom');
-        var resourceType = button.getAttribute('data-type');
-        var resourceQuantity = button.getAttribute('data-quantity');
-        var resourceForniseur = button.getAttribute('data-forniseur');
-
-        document.getElementById('editResourceId').value = resourceId;
-        document.getElementById('editnom').value = resourceDescription;
-        document.getElementById('editType').value = resourceType;
-        document.getElementById('editQuantity').value = resourceQuantity;
-        document.getElementById('editForniseur').value = resourceForniseur;
     });
 </script>
 </body>

@@ -60,17 +60,40 @@ public class ProjectServelet extends HttpServlet implements IProject {
                     throw new RuntimeException(e);
                 }
                 break;
+            case "/dashboard":
+                try {
+                    dasshbord(request, response);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
             default:
-                dasshbord(request, response);
+                try {
+                    LoginAdministration(request,response);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
         }
     }
-    public void dasshbord(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void dasshbord(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
+        int countProject = dao.CountAllProject();
+        int countTaches = dao.CountAllTaches();
+        int countResources = dao.CountAllResources();
+        List<Project> LastprojectList = dao.SelectLastProject();
+        req.setAttribute("countTaches",countTaches);
+        req.setAttribute("countResources",countResources);
+        req.setAttribute("countProject", countProject);
+        req.setAttribute("LastprojectList", LastprojectList);
         RequestDispatcher dispatcher = req.getRequestDispatcher("dashboard.jsp");
         dispatcher.forward(req, resp);
     }
+    public void LoginAdministration(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
+        RequestDispatcher dispatcher = req.getRequestDispatcher("AdministrationLogin.jsp");
+        dispatcher.forward(req, resp);
+    }
 
-    @Override
+        @Override
     public void ShowProject(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         List<Project> projectList = dao.SelectAllProject();
