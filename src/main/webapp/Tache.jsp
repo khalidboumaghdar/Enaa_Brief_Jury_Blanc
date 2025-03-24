@@ -358,6 +358,7 @@
                             <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Nom de la Project</th>
                                 <th>Nom de la Tache</th>
                                 <th>Date de debut</th>
                                 <th>Date de fin</th>
@@ -368,6 +369,7 @@
                             <c:forEach var="tache" items="${taches}">
                                 <tr>
                                     <td>${tache.id}</td>
+                                    <td>${tache.project.nom}</td>
                                     <td>${tache.description}</td>
                                     <td>${tache.dateDebut}</td>
                                     <td>${tache.dateFin}</td>
@@ -547,6 +549,7 @@
             document.getElementById('AddresourceProject').value = Resourceprojet_id;
         });
     });
+
 </script>
 </body>
 </html>

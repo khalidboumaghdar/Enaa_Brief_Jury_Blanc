@@ -610,6 +610,167 @@
         document.getElementById('editQuantity').value = resourceQuantity;
         document.getElementById('editForniseur').value = resourceForniseur;
     });
+    function validateAddResourceForm() {
+        let isValid = true;
+
+        const resourceName = document.getElementById("description");
+        const resourceType = document.getElementById("type");
+        const resourceQuantity = document.getElementById("quantity");
+        const resourceForniseur = document.getElementById("forniseur");
+
+        const errorResourceName = document.getElementById("resourceNameError");
+        const errorResourceType = document.getElementById("resourceTypeError");
+        const errorResourceQuantity = document.getElementById("resourceQuantityError");
+        const errorResourceForniseur = document.getElementById("resourceForniseurError");
+
+        if (resourceName.value.trim() === "") {
+            isValid = false;
+            resourceName.style.border = "2px solid red";
+            errorResourceName.textContent = "Veuillez saisir un nom de ressource.";
+            errorResourceName.style.color = "red";
+        } else {
+            resourceName.style.border = "2px solid green";
+            errorResourceName.textContent = "";
+        }
+
+        if (resourceType.value === "" || resourceType.value === null) {
+            isValid = false;
+            resourceType.style.border = "2px solid red";
+            errorResourceType.textContent = "Veuillez sélectionner un type de ressource.";
+            errorResourceType.style.color = "red";
+        } else {
+            resourceType.style.border = "2px solid green";
+            errorResourceType.textContent = "";
+        }
+
+        if (resourceQuantity.value === "" || parseInt(resourceQuantity.value) <= 0) {
+            isValid = false;
+            resourceQuantity.style.border = "2px solid red";
+            errorResourceQuantity.textContent = "Veuillez saisir une quantité valide (supérieure à 0).";
+            errorResourceQuantity.style.color = "red";
+        } else {
+            resourceQuantity.style.border = "2px solid green";
+            errorResourceQuantity.textContent = "";
+        }
+
+        if (resourceForniseur.value.trim() === "") {
+            isValid = false;
+            resourceForniseur.style.border = "2px solid red";
+            errorResourceForniseur.textContent = "Veuillez saisir un nom de fournisseur.";
+            errorResourceForniseur.style.color = "red";
+        } else {
+            resourceForniseur.style.border = "2px solid green";
+            errorResourceForniseur.textContent = "";
+        }
+
+        return isValid;
+    }
+
+    function validateEditResourceForm() {
+        let isValid = true;
+
+        const resourceName = document.getElementById("editnom");
+        const resourceType = document.getElementById("editType");
+        const resourceQuantity = document.getElementById("editQuantity");
+        const resourceForniseur = document.getElementById("editForniseur");
+
+        const errorResourceName = document.getElementById("editResourceNameError");
+        const errorResourceType = document.getElementById("editResourceTypeError");
+        const errorResourceQuantity = document.getElementById("editResourceQuantityError");
+        const errorResourceForniseur = document.getElementById("editResourceForniseurError");
+
+        if (resourceName.value.trim() === "") {
+            isValid = false;
+            resourceName.style.border = "2px solid red";
+            errorResourceName.textContent = "Veuillez saisir un nom de ressource.";
+            errorResourceName.style.color = "red";
+        } else {
+            resourceName.style.border = "2px solid green";
+            errorResourceName.textContent = "";
+        }
+
+        if (resourceType.value === "" || resourceType.value === null) {
+            isValid = false;
+            resourceType.style.border = "2px solid red";
+            errorResourceType.textContent = "Veuillez sélectionner un type de ressource.";
+            errorResourceType.style.color = "red";
+        } else {
+            resourceType.style.border = "2px solid green";
+            errorResourceType.textContent = "";
+        }
+
+        if (resourceQuantity.value === "" || parseInt(resourceQuantity.value) <= 0) {
+            isValid = false;
+            resourceQuantity.style.border = "2px solid red";
+            errorResourceQuantity.textContent = "Veuillez saisir une quantité valide (supérieure à 0).";
+            errorResourceQuantity.style.color = "red";
+        } else {
+            resourceQuantity.style.border = "2px solid green";
+            errorResourceQuantity.textContent = "";
+        }
+
+        if (resourceForniseur.value.trim() === "") {
+            isValid = false;
+            resourceForniseur.style.border = "2px solid red";
+            errorResourceForniseur.textContent = "Veuillez saisir un nom de fournisseur.";
+            errorResourceForniseur.style.color = "red";
+        } else {
+            resourceForniseur.style.border = "2px solid green";
+            errorResourceForniseur.textContent = "";
+        }
+
+        return isValid;
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const addForm = document.querySelector("#addResourceModal form");
+        if (addForm) {
+            const descriptionContainer = document.querySelector("#description").parentNode;
+            const typeContainer = document.querySelector("#type").parentNode;
+            const quantityContainer = document.querySelector("#quantity").parentNode;
+            const forniseurContainer = document.querySelector("#forniseur").parentNode;
+
+            descriptionContainer.insertAdjacentHTML('beforeend', '<span id="resourceNameError" class="text-danger"></span>');
+            typeContainer.insertAdjacentHTML('beforeend', '<span id="resourceTypeError" class="text-danger"></span>');
+            quantityContainer.insertAdjacentHTML('beforeend', '<span id="resourceQuantityError" class="text-danger"></span>');
+            forniseurContainer.insertAdjacentHTML('beforeend', '<span id="resourceForniseurError" class="text-danger"></span>');
+
+            document.getElementById("description").addEventListener("blur", validateAddResourceForm);
+            document.getElementById("type").addEventListener("change", validateAddResourceForm);
+            document.getElementById("quantity").addEventListener("blur", validateAddResourceForm);
+            document.getElementById("forniseur").addEventListener("blur", validateAddResourceForm);
+
+            addForm.addEventListener("submit", function(event) {
+                if (!validateAddResourceForm()) {
+                    event.preventDefault();
+                }
+            });
+        }
+
+        const editForm = document.querySelector("#editResourceModal form");
+        if (editForm) {
+            const editNomContainer = document.querySelector("#editnom").parentNode;
+            const editTypeContainer = document.querySelector("#editType").parentNode;
+            const editQuantityContainer = document.querySelector("#editQuantity").parentNode;
+            const editForniseurContainer = document.querySelector("#editForniseur").parentNode;
+
+            editNomContainer.insertAdjacentHTML('beforeend', '<span id="editResourceNameError" class="text-danger"></span>');
+            editTypeContainer.insertAdjacentHTML('beforeend', '<span id="editResourceTypeError" class="text-danger"></span>');
+            editQuantityContainer.insertAdjacentHTML('beforeend', '<span id="editResourceQuantityError" class="text-danger"></span>');
+            editForniseurContainer.insertAdjacentHTML('beforeend', '<span id="editResourceForniseurError" class="text-danger"></span>');
+
+            document.getElementById("editnom").addEventListener("blur", validateEditResourceForm);
+            document.getElementById("editType").addEventListener("change", validateEditResourceForm);
+            document.getElementById("editQuantity").addEventListener("blur", validateEditResourceForm);
+            document.getElementById("editForniseur").addEventListener("blur", validateEditResourceForm);
+
+            editForm.addEventListener("submit", function(event) {
+                if (!validateEditResourceForm()) {
+                    event.preventDefault();
+                }
+            });
+        }
+    });
 </script>
 </body>
 </html>

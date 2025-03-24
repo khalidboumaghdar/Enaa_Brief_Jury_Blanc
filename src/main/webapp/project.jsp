@@ -326,7 +326,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="LogoutServlet.jsp" class="nav-link">
+                <a href="LogoutServlet" class="nav-link">
                     <i class="bi bi-box-arrow-right"></i> Deconnexion
                 </a>
             </li>
@@ -393,6 +393,7 @@
 </div>
 
 <!-- Edit Modal -->
+<!-- Edit Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -406,22 +407,27 @@
                     <div class="mb-3">
                         <label for="editProjectName" class="form-label">Nom du projet</label>
                         <input type="text" name="nompr" class="form-control" id="editProjectName" required>
+                        <span id="editProjectNameError"></span>
                     </div>
                     <div class="mb-3">
                         <label for="editProjectDescription" class="form-label">Description</label>
                         <textarea class="form-control" name="descriptionpr" id="editProjectDescription" rows="3" required></textarea>
+                        <span id="editProjectDescriptionError"></span>
                     </div>
                     <div class="mb-3">
                         <label for="editStartDate" class="form-label">Date de début</label>
                         <input type="date" name="date_debutpr" class="form-control" id="editStartDate" required>
+                        <span id="editStartDateError"></span>
                     </div>
                     <div class="mb-3">
                         <label for="editEndDate" class="form-label">Date de fin</label>
                         <input type="date" name="date_finpr" class="form-control" id="editEndDate" required>
+                        <span id="editEndDateError"></span>
                     </div>
                     <div class="mb-3">
                         <label for="editBudget" class="form-label">Budget (DH)</label>
                         <input type="number" name="budgetpr" class="form-control" id="editBudget" step="0.01" required>
+                        <span id="editBudgetError"></span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
@@ -432,7 +438,6 @@
         </div>
     </div>
 </div>
-
 <!-- Add Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -442,26 +447,31 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="AddProject" method="post">
+                <form action="AddProject" onsubmit="validateProjectForm()" id="formajouter" method="post">
                     <div class="mb-3">
                         <label for="projectName" class="form-label">Nom du projet</label>
-                        <input type="text" name="nom" class="form-control" id="projectName" required>
+                        <input type="text" name="nom" class="form-control" id="projectName" onblur="validateProjectForm()" required>
+                        <span id="projectNameError"></span>
                     </div>
                     <div class="mb-3">
                         <label for="projectDescription" class="form-label">Description</label>
-                        <textarea class="form-control" name="description" id="projectDescription" rows="3" required></textarea>
+                        <textarea class="form-control" name="description" id="projectDescription" onblur="validateProjectForm()" rows="3" required></textarea>
+                        <span id="projectDescriptionError"></span>
                     </div>
                     <div class="mb-3">
                         <label for="startDate" class="form-label">Date de début</label>
-                        <input type="date" name="date_debut" class="form-control" id="startDate" required>
+                        <input type="date" name="date_debut" class="form-control" id="startDate" onblur="validateProjectForm()" required>
+                        <span id="startDateError"></span>
                     </div>
                     <div class="mb-3">
                         <label for="endDate" class="form-label">Date de fin</label>
-                        <input type="date" name="date_fin" class="form-control" id="endDate" required>
+                        <input type="date" name="date_fin" class="form-control" id="endDate" onblur="validateProjectForm()" required>
+                        <span id="endDateError"></span>
                     </div>
                     <div class="mb-3">
                         <label for="budget" class="form-label">Budget (DH)</label>
-                        <input type="number" name="budget" class="form-control" id="budget" step="100" required>
+                        <input type="number" name="budget" class="form-control" id="budget" onblur="validateProjectForm()" step="100" required>
+                        <span id="budgetError"></span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
@@ -493,7 +503,6 @@
         menuToggle.addEventListener('click', toggleMenu);
         overlay.addEventListener('click', toggleMenu);
 
-        // Handle edit buttons
         const editButtons = document.querySelectorAll('.edit-btn');
         editButtons.forEach(button => {
             button.addEventListener('click', function () {
@@ -515,7 +524,6 @@
             });
         });
 
-        // Handle nav links
         const navLinks = document.querySelectorAll('.nav-link');
         navLinks.forEach(link => {
             link.addEventListener('click', function() {
@@ -528,13 +536,187 @@
             });
         });
 
-        // Handle window resize
         window.addEventListener('resize', function() {
             if (window.innerWidth > 768) {
                 sidebar.classList.remove('active');
                 overlay.classList.remove('active');
             }
         });
+    });
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("formajouter").addEventListener("submit", function (event) {
+            if (!validateProjectForm()) {
+                event.preventDefault();
+            }
+        });
+    });
+
+    function validateProjectForm() {
+        let isValid = true;
+
+        const projectName = document.getElementById("projectName");
+        const projectDescription = document.getElementById("projectDescription");
+        const startDate = document.getElementById("startDate");
+        const endDate = document.getElementById("endDate");
+        const budget = document.getElementById("budget");
+
+        const errorProjectName = document.getElementById("projectNameError");
+        const errorProjectDescription = document.getElementById("projectDescriptionError");
+        const errorStartDate = document.getElementById("startDateError");
+        const errorEndDate = document.getElementById("endDateError");
+        const errorBudget = document.getElementById("budgetError");
+
+        if (projectName.value.trim() === "") {
+            isValid = false;
+            projectName.style.border = "2px solid red";
+            errorProjectName.textContent = "Veuillez saisir un nom de projet.";
+            errorProjectName.style.color = "red";
+        } else {
+            projectName.style.border = "2px solid green";
+            errorProjectName.textContent = "";
+        }
+
+        if (projectDescription.value.trim() === "") {
+            isValid = false;
+            projectDescription.style.border = "2px solid red";
+            errorProjectDescription.textContent = "Veuillez saisir une description.";
+            errorProjectDescription.style.color = "red";
+        } else {
+            projectDescription.style.border = "2px solid green";
+            errorProjectDescription.textContent = "";
+        }
+
+        if (startDate.value === "") {
+            isValid = false;
+            startDate.style.border = "2px solid red";
+            errorStartDate.textContent = "Veuillez choisir une date de début.";
+            errorStartDate.style.color = "red";
+        } else {
+            startDate.style.border = "2px solid green";
+            errorStartDate.textContent = "";
+        }
+
+        if (endDate.value === "") {
+            isValid = false;
+            endDate.style.border = "2px solid red";
+            errorEndDate.textContent = "Veuillez choisir une date de fin.";
+            errorEndDate.style.color = "red";
+        } else if (new Date(startDate.value) > new Date(endDate.value)) {
+            isValid = false;
+            endDate.style.border = "2px solid red";
+            errorEndDate.textContent = "La date de fin doit être postérieure à la date de début.";
+            errorEndDate.style.color = "red";
+        } else {
+            endDate.style.border = "2px solid green";
+            errorEndDate.textContent = "";
+        }
+
+        if (budget.value === "" || parseFloat(budget.value) <= 0) {
+            isValid = false;
+            budget.style.border = "2px solid red";
+            errorBudget.textContent = "Veuillez saisir un budget valide.";
+            errorBudget.style.color = "red";
+        } else {
+            budget.style.border = "2px solid green";
+            errorBudget.textContent = "";
+        }
+
+        return isValid;
+    }
+    function validateEditProjectForm() {
+        let isValid = true;
+
+        const projectName = document.getElementById("editProjectName");
+        const projectDescription = document.getElementById("editProjectDescription");
+        const startDate = document.getElementById("editStartDate");
+        const endDate = document.getElementById("editEndDate");
+        const budget = document.getElementById("editBudget");
+
+        const errorProjectName = document.getElementById("editProjectNameError");
+        const errorProjectDescription = document.getElementById("editProjectDescriptionError");
+        const errorStartDate = document.getElementById("editStartDateError");
+        const errorEndDate = document.getElementById("editEndDateError");
+        const errorBudget = document.getElementById("editBudgetError");
+
+        if (projectName.value.trim() === "") {
+            isValid = false;
+            projectName.style.border = "2px solid red";
+            errorProjectName.textContent = "Veuillez saisir un nom de projet.";
+            errorProjectName.style.color = "red";
+        } else {
+            projectName.style.border = "2px solid green";
+            errorProjectName.textContent = "";
+        }
+
+        if (projectDescription.value.trim() === "") {
+            isValid = false;
+            projectDescription.style.border = "2px solid red";
+            errorProjectDescription.textContent = "Veuillez saisir une description.";
+            errorProjectDescription.style.color = "red";
+        } else {
+            projectDescription.style.border = "2px solid green";
+            errorProjectDescription.textContent = "";
+        }
+
+        if (startDate.value === "") {
+            isValid = false;
+            startDate.style.border = "2px solid red";
+            errorStartDate.textContent = "Veuillez choisir une date de début.";
+            errorStartDate.style.color = "red";
+        } else {
+            startDate.style.border = "2px solid green";
+            errorStartDate.textContent = "";
+        }
+
+        if (endDate.value === "") {
+            isValid = false;
+            endDate.style.border = "2px solid red";
+            errorEndDate.textContent = "Veuillez choisir une date de fin.";
+            errorEndDate.style.color = "red";
+        } else if (new Date(startDate.value) > new Date(endDate.value)) {
+            isValid = false;
+            endDate.style.border = "2px solid red";
+            errorEndDate.textContent = "La date de fin doit être postérieure à la date de début.";
+            errorEndDate.style.color = "red";
+        } else {
+            endDate.style.border = "2px solid green";
+            errorEndDate.textContent = "";
+        }
+
+        if (budget.value === "" || parseFloat(budget.value) <= 0) {
+            isValid = false;
+            budget.style.border = "2px solid red";
+            errorBudget.textContent = "Veuillez saisir un budget valide.";
+            errorBudget.style.color = "red";
+        } else {
+            budget.style.border = "2px solid green";
+            errorBudget.textContent = "";
+        }
+
+        return isValid;
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("formajouter").addEventListener("submit", function(event) {
+            if (!validateProjectForm()) {
+                event.preventDefault();
+            }
+        });
+
+        document.getElementById("editProject").addEventListener("submit", function(event) {
+            if (!validateEditProjectForm()) {
+                event.preventDefault();
+            }
+        });
+
+        // Ajouter événements onblur pour la validation en temps réel
+        document.getElementById("editProjectName").addEventListener("blur", validateEditProjectForm);
+        document.getElementById("editProjectDescription").addEventListener("blur", validateEditProjectForm);
+        document.getElementById("editStartDate").addEventListener("blur", validateEditProjectForm);
+        document.getElementById("editEndDate").addEventListener("blur", validateEditProjectForm);
+        document.getElementById("editBudget").addEventListener("blur", validateEditProjectForm);
     });
 </script>
 

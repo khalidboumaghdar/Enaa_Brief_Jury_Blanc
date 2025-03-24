@@ -474,6 +474,7 @@
         menuToggle.addEventListener('click', toggleMenu);
         overlay.addEventListener('click', toggleMenu);
     });
+
 </script>
 </body>
 </html>
