@@ -41,13 +41,13 @@
 Les diagrammes UML suivants illustrent la structure et le flux de l'application :
 
 ### 1. **Diagramme de Classes**  
-   ![Diagramme de Classes](./uml/class-diagram.png)
+<img width="599" alt="image" src="https://github.com/user-attachments/assets/f6fe1bd7-06af-49d9-b899-9a88a5006336" />
 
 ### 2. **Diagramme de Cas d'Utilisation**  
-   ![Diagramme de Cas d'Utilisation](./uml/use-case-diagram.png)
+<img width="528" alt="image" src="https://github.com/user-attachments/assets/e2b7704c-af59-44eb-b3f8-d63633dc53f5" />
 
 ### 3. **Diagramme de Séquence**  
-   ![Diagramme de Séquence](./uml/sequence-diagram.png)
+<img width="504" alt="image" src="https://github.com/user-attachments/assets/5d881ea4-8142-4c07-9074-49357f946879" />
 
 ## Structure du projet
 
