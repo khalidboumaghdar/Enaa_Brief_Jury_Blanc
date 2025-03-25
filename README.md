@@ -41,7 +41,7 @@
 Les diagrammes UML suivants illustrent la structure et le flux de l'application :
 
 ### 1. **Diagramme de Classes**  
-<img width="599" alt="image" src="https://github.com/user-attachments/assets/f6fe1bd7-06af-49d9-b899-9a88a5006336" />
+<img width="521" alt="image" src="https://github.com/user-attachments/assets/5a1c1a49-518f-43da-9a8a-089d6f10fb2b" />
 
 ### 2. **Diagramme de Cas d'Utilisation**  
 <img width="528" alt="image" src="https://github.com/user-attachments/assets/e2b7704c-af59-44eb-b3f8-d63633dc53f5" />
